@@ -47,17 +47,80 @@ class TitleWidget extends StatelessWidget {
         centerTitle: true,
         title: Text('CookBook', style: GoogleFonts.dancingScript(color: Colors.white, fontSize: 50)),
         backgroundColor: const Color(0xFF120429),
-        leading: 
-          IconButton(
-            icon: Icon(Icons.menu, color: Colors.white, size: 35,),
-            onPressed: () {/*
-              // Navigate to a settings page
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => SettingsPage()),
-              );
-            */},
-          ),
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: Icon(Icons.menu, color: Colors.white, size: 35,),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },)
         
+      ),
+      drawer: Drawer(
+        backgroundColor: Color(0xFF240952),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            SizedBox(
+              height: 80,
+              child: Container(
+                padding: EdgeInsets.zero,
+                decoration: const BoxDecoration(color: Color(0xFF120429)),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  }, 
+                  icon: Icon(Icons.menu, color: Colors.white, size: 35,),
+                  alignment: Alignment.bottomLeft,
+                )
+              )
+            ),
+            ListTile(
+              title: const Text('Search'),
+              selected: true,
+              onTap: () {
+                Navigator.pop(context);
+              }
+            ),
+            ListTile(
+              title: const Text('Favorites'),
+              selected: true,
+              onTap: () {
+                Navigator.pop(context);
+              }
+            ),
+            ListTile(
+              title: const Text('Add New Recipe'),
+              selected: true,
+              onTap: () {
+                Navigator.pop(context);
+              }
+            ),
+            ListTile(
+              title: const Text('Random Recipe'),
+              selected: true,
+              onTap: () {
+                Navigator.pop(context);
+              }
+            ),
+            ListTile(
+              title: const Text('Meal Calendar'),
+              selected: true,
+              onTap: () {
+                Navigator.pop(context);
+              }
+            ),
+            ListTile(
+              title: const Text('Shopping List'),
+              selected: true,
+              onTap: () {
+                Navigator.pop(context);
+              }
+            ),
+          ]
+        ),
       ),
       body: const MyHomePage(), // This handles screen transitions
     );
