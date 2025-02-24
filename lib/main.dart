@@ -1,28 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'screens/search.dart';
+import 'screens/favorites.dart';
+import 'screens/add_recipe.dart';
+import 'screens/random_recipe.dart';
+import 'screens/meal_calendar.dart';
+import 'screens/shopping_list.dart';
 
 void main() {
   runApp(MyApp());
 }
-/*
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF240952),
-        textTheme: const TextTheme().apply(bodyColor: Colors.white, displayColor: Colors.white),
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
-        ),
-      home: const MyHomePage(),
-    );
-  }
-}
-*/
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -30,23 +17,58 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(scaffoldBackgroundColor: const Color(0xFF240952)),
-      home: const TitleWidget(),
+      theme: ThemeData(scaffoldBackgroundColor: const Color.fromARGB(255, 10, 52, 99)),
+      home: TitleWidget(),
     );
   }
 }
 
-class TitleWidget extends StatelessWidget {
+class TitleWidget extends StatefulWidget {
   const TitleWidget({super.key});
 
+  @override
+  State<TitleWidget> createState() => _TitleWidgetState();
+}
+class _TitleWidgetState extends State<TitleWidget> {
+  Widget currentPage = const MyHomePage();
+  
+  void _onDrawerItemClick({required int clickedIndex}) {
+    setState(() {
+      switch (clickedIndex) {
+        case 0:
+          currentPage = const MyHomePage();
+          break;
+        case 1:
+          currentPage = const MyFavoritesPage();
+          break;
+        case 2:
+          currentPage = const AddRecipePage();
+          break;
+        case 3:
+          currentPage = const RandomRecipePage();
+          break;
+        case 4:
+          currentPage = const MealCalendarPage();
+          break;
+        case 5:
+          currentPage = const ShoppingListPage();
+          break;
+        default:
+          currentPage = const MyHomePage();
+          break;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: currentPage, // This handles screen transitions
       appBar: AppBar(
+        toolbarHeight: 80,
         centerTitle: true,
         title: Text('CookBook', style: GoogleFonts.dancingScript(color: Colors.white, fontSize: 50)),
-        backgroundColor: const Color(0xFF120429),
+        backgroundColor: const Color.fromARGB(255, 7, 22, 48),
         leading: Builder(
           builder: (context) {
             return IconButton(
@@ -58,123 +80,93 @@ class TitleWidget extends StatelessWidget {
           },)
         
       ),
-      drawer: Drawer(
-        backgroundColor: Color(0xFF240952),
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            SizedBox(
-              height: 80,
-              child: Container(
-                padding: EdgeInsets.zero,
-                decoration: const BoxDecoration(color: Color(0xFF120429)),
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  }, 
-                  icon: Icon(Icons.menu, color: Colors.white, size: 35,),
-                  alignment: Alignment.bottomLeft,
-                )
-              )
-            ),
-            ListTile(
-              title: const Text('Search'),
-              selected: true,
-              onTap: () {
-                Navigator.pop(context);
-              }
-            ),
-            ListTile(
-              title: const Text('Favorites'),
-              selected: true,
-              onTap: () {
-                Navigator.pop(context);
-              }
-            ),
-            ListTile(
-              title: const Text('Add New Recipe'),
-              selected: true,
-              onTap: () {
-                Navigator.pop(context);
-              }
-            ),
-            ListTile(
-              title: const Text('Random Recipe'),
-              selected: true,
-              onTap: () {
-                Navigator.pop(context);
-              }
-            ),
-            ListTile(
-              title: const Text('Meal Calendar'),
-              selected: true,
-              onTap: () {
-                Navigator.pop(context);
-              }
-            ),
-            ListTile(
-              title: const Text('Shopping List'),
-              selected: true,
-              onTap: () {
-                Navigator.pop(context);
-              }
-            ),
-          ]
-        ),
-      ),
-      body: const MyHomePage(), // This handles screen transitions
+      drawer: MainDrawer(onDrawerItemClick: _onDrawerItemClick),
     );
   }
 }
 
+class MainDrawer extends StatelessWidget {
+  const MainDrawer({super.key, required this.onDrawerItemClick});
 
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  
+  final void Function({required int clickedIndex}) onDrawerItemClick;
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Padding(padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 32),
-            child: 
-              TextField(decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(32)), filled: true, fillColor: Colors.white, hintText: 'Recipe, Ingredients, MealType, Cuisine', contentPadding: EdgeInsets.only(left: 16)))
+    return Drawer(
+      backgroundColor: Color(0xFF537091),
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          SizedBox(
+            height: 80,
+            child: Container(
+              padding: EdgeInsets.zero,
+              decoration: const BoxDecoration(color: Color(0xFF1F2D44)),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                }, 
+                icon: Icon(Icons.close_rounded, color: Colors.white, size: 35,),
+                alignment: Alignment.bottomLeft,
+              )
             )
-          ],
-        ),
+          ),
+          ListTile(
+            leading: Icon(Icons.search_outlined, color: Colors.white,),
+            title: const Text('Search', style: TextStyle(color: Colors.white),),
+            selected: true,
+            onTap: () {
+              onDrawerItemClick(clickedIndex: 0);
+              Navigator.pop(context);
+            }
+          ),
+          ListTile(
+            leading: Icon(Icons.favorite_outline, color: Colors.white,),
+            title: const Text('Favorites', style: TextStyle(color: Colors.white),),
+            selected: true,
+            onTap: () {
+              onDrawerItemClick(clickedIndex: 1);
+              Navigator.pop(context);
+            }
+          ),
+          ListTile(
+            leading: Icon(Icons.add_box_outlined, color: Colors.white,),
+            title: const Text('Add New Recipe', style: TextStyle(color: Colors.white),),
+            selected: true,
+            onTap: () {
+              onDrawerItemClick(clickedIndex: 2);
+              Navigator.pop(context);
+            }
+          ),
+          ListTile(
+            leading: ImageIcon(AssetImage('assets/dice.png'), color: Colors.white,),
+            title: const Text('Random Recipe', style: TextStyle(color: Colors.white),),
+            selected: true,
+            onTap: () {
+              onDrawerItemClick(clickedIndex: 3);
+              Navigator.pop(context);
+            }
+          ),
+          ListTile(
+            leading: Icon(Icons.calendar_month_rounded, color: Colors.white,),
+            title: const Text('Meal Calendar', style: TextStyle(color: Colors.white),),
+            selected: true,
+            onTap: () {
+              onDrawerItemClick(clickedIndex: 4);
+              Navigator.pop(context);
+            }
+          ),
+          ListTile(
+            leading: Icon(Icons.list_alt_outlined, color: Colors.white,),
+            title: const Text('Shopping List', style: TextStyle(color: Colors.white),),
+            selected: true,
+            onTap: () {
+              onDrawerItemClick(clickedIndex: 5);
+              Navigator.pop(context);
+            }
+          ),
+        ]
       ),
-    ); // This trailing comma makes auto-formatting nicer for build methods.
+    );
   }
 }
