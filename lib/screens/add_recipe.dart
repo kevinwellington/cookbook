@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AddRecipePage extends StatefulWidget {
   const AddRecipePage({super.key});
@@ -9,8 +10,6 @@ class AddRecipePage extends StatefulWidget {
 
 
 class _AddRecipePageState extends State<AddRecipePage> {
-  
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -20,30 +19,91 @@ class _AddRecipePageState extends State<AddRecipePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Text('Add New Recipe')
+      body: Align(alignment: Alignment.topCenter,
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          Center(child: Text('Add New Recipe', style: TextStyle(color: Colors.white, fontSize: 50,))),
+          SizedBox(height: 50,),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SizedBox(width: MediaQuery.of(context).size.width / 4,),
+              Text('            Title:', style: TextStyle(color: Colors.white, fontSize: 30,),),
+              SizedBox(width: 15,),
+              Flexible(child: TextField(decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(32)), filled: true, fillColor: Colors.white, contentPadding: EdgeInsets.all(16)))),
+              SizedBox(width: MediaQuery.of(context).size.width / 4)
+              ],
+            ),
+            SizedBox(height: 50,),
+            Row(
+              children: [
+                SizedBox(width: MediaQuery.of(context).size.width / 4,),
+                Text('  Meal Type:', style: TextStyle(color: Colors.white, fontSize: 30,),),
+                SizedBox(width: 15,),
+                Flexible(child: TextField(decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(32)), filled: true, fillColor: Colors.white, contentPadding: EdgeInsets.all(16)))),
+                SizedBox(width: MediaQuery.of(context).size.width / 4)
+              ],
+            ),
+            SizedBox(height: 50,),
+            Row(
+              children: [
+                SizedBox(width: MediaQuery.of(context).size.width / 4,),
+                Text('       Cuisine:', style: TextStyle(color: Colors.white, fontSize: 30,),),
+                SizedBox(width: 15,),
+                Flexible(child: TextField(decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(32)), filled: true, fillColor: Colors.white, contentPadding: EdgeInsets.all(16)))),
+                SizedBox(width: MediaQuery.of(context).size.width / 4)
+              ],
+            ),
+            SizedBox(height: 50,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(width: MediaQuery.of(context).size.width / 4,),
+                Text('Ingredients:', style: TextStyle(color: Colors.white, fontSize: 30,),),
+                SizedBox(width: 15,),
+                Flexible(child: TextField(minLines: 5, maxLines: 10, decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(32)), filled: true, fillColor: Colors.white, contentPadding: EdgeInsets.all(16)))),
+                SizedBox(width: MediaQuery.of(context).size.width / 4)
+              ],
+            ),
+            SizedBox(height: 50,),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(width: MediaQuery.of(context).size.width / 4,),
+                Text('Instructions:', style: TextStyle(color: Colors.white, fontSize: 30,),),
+                SizedBox(width: 15,),
+                Flexible(child: TextField(minLines: 5, maxLines: 10, decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(32)), filled: true, fillColor: Colors.white, contentPadding: EdgeInsets.all(16)))),
+                SizedBox(width: MediaQuery.of(context).size.width / 4)
+              ],
+            ),
+            SizedBox(height: 50,),
+            Center(
+              child: SizedBox(
+                width: 200,
+                height: 40,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 7, 22, 48),
+                  ),
+                  onPressed: () {}, 
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Add to ', style: TextStyle(color: Colors.white, fontSize: 15),),
+                        Text('CookBook', style: GoogleFonts.dancingScript(color: Colors.white, fontSize: 20),)
+                      ],
+                    )
+                  )
+                ),
+              ),
+            ),
+            SizedBox(height: 50,),
           ],
-        ),
-      ),
+        )
+      )
     ); // This trailing comma makes auto-formatting nicer for build methods.
   }
 }
